@@ -33,7 +33,8 @@ class BookTableViewController: UITableViewController {
     }
 
     @objc func addButtonWasTapped() {
-       self.navigationController?.present(AddBookViewController(), animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: AddBookViewController())
+       self.navigationController?.present(navController, animated: true, completion: nil)
     }
 
 
