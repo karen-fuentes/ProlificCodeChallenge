@@ -24,6 +24,9 @@ class BookTableViewController: UITableViewController {
         loadBooks()
 
     }
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.reloadData()
+    }
     private func loadBooks() {
         BooksAPIClient.manager.getAllBooks(completionHandler: {
             self.collectionOfBooks = $0

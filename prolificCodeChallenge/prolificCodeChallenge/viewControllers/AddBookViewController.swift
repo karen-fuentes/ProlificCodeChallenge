@@ -43,14 +43,23 @@ class AddBookViewController: UIViewController {
         }
     
     }
+    
     func postBook(){
         let bookToPost = Book(author: authorTextField.text!, categories: categoriesTextField.text!, id: 0, lastCheckedOut: nil, lastCheckedOutBy: nil, publisher: publisherTextField.text!, title: titleTextField.text!, url: "")
         BooksAPIClient.manager.createBook(book: bookToPost, completionHandler: { (response) in
-            print((response as! HTTPURLResponse).statusCode)
-            
-            print("was able to post")
-        }, errorHandler: { print($0) } )
 
+            self.alertUserBookWasPosted()
+        }, errorHandler: { print($0) } )
+        //self.dismiss(animated: true, completion: nil)
+    }
+    func alertUserBookWasPosted() {
+        let alertController = UIAlertController(title: "The book Was Posted Successfully!", message: nil, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
     func alertUserOfMissingFields(){
         let alertController = UIAlertController(title: "Missing Fields!", message: "You must have title and author in order to submit", preferredStyle: .alert)
