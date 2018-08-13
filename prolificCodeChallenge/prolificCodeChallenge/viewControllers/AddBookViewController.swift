@@ -10,6 +10,7 @@ import UIKit
 
 class AddBookViewController: UIViewController {
        let stackView = UIStackView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -17,8 +18,6 @@ class AddBookViewController: UIViewController {
         viewHierarchy()
         configureConstraint()
     }
-
-
 
     func setNavigationBar() {
         self.navigationItem.title = "Add Book"
@@ -33,21 +32,46 @@ class AddBookViewController: UIViewController {
         } else {
             self.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    @objc func submitButtonWasPressed() {
+        if titleTextField.text == "" || authorTextField.text == "" {
+            self.alertUserOfMissingFields()
+        }
+       else {
+            self.postBook()
+        }
+    
+    }
+    func postBook(){
+        let bookToPost = Book(author: authorTextField.text!, categories: categoriesTextField.text!, id: 0, lastCheckedOut: nil, lastCheckedOutBy: nil, publisher: publisherTextField.text!, title: titleTextField.text!, url: "")
+        BooksAPIClient.manager.createBook(book: bookToPost, completionHandler: { (response) in
+            print((response as! HTTPURLResponse).statusCode)
+            
+            print("was able to post")
+        }, errorHandler: { print($0) } )
+
+    }
+    func alertUserOfMissingFields(){
+        let alertController = UIAlertController(title: "Missing Fields!", message: "You must have title and author in order to submit", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
         
     }
     
     func alertUserOfLosingInfo() {
         let alertController = UIAlertController(title: "Are you sure you want to leave?", message: "You are going to lose your info", preferredStyle: .alert)
         
-        let action1 = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction) in
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction) in
             self.dismiss(animated: true, completion: nil)
         }
-        let action2 = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(action1)
-        alertController.addAction(action2)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true, completion: nil)
-        
     }
     
     func configureConstraint() {
@@ -145,6 +169,7 @@ class AddBookViewController: UIViewController {
         button.backgroundColor = .blue
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
+        button.addTarget(self, action: #selector(submitButtonWasPressed), for: .touchUpInside)
         return button
     }()
 

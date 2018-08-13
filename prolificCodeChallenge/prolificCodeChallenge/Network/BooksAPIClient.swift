@@ -34,4 +34,23 @@ struct BooksAPIClient {
         }
         APIRequestManager.manager.performDataTask(with: urlRequest, completionHandler: completion, errorHandler: errorHandler)
     }
+    
+    // MARK: - POST Request
+    func createBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
+        
+        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books"
+        guard let url = URL(string: stringURL) else {
+            errorHandler(AppError.badURL(str: stringURL))
+            return
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        
+        let postString = "author=\(book.author)&categories=\(book.categories)&publisher=\(book.publisher)&title=\(book.title)"
+        urlRequest.httpBody = postString.data(using: .utf8)
+        
+        APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
+            completionHandler(response)
+        }, errorHandler: { print($0) })
+    }
 }
