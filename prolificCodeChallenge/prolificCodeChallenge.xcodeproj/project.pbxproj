@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C536C4B92122317B006DA267 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C536C4B82122317B006DA267 /* BookDetailViewController.swift */; };
 		C5A4C108211F5BA300500C4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A4C107211F5BA300500C4C /* AppDelegate.swift */; };
 		C5A4C10F211F5BA900500C4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5A4C10E211F5BA900500C4C /* Assets.xcassets */; };
 		C5A4C112211F5BA900500C4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A4C110211F5BA900500C4C /* LaunchScreen.storyboard */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C536C4B82122317B006DA267 /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 		C5A4C104211F5BA300500C4C /* prolificCodeChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = prolificCodeChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5A4C107211F5BA300500C4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C5A4C10E211F5BA900500C4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				C5A4C1352120CCF400500C4C /* Cells */,
 				C5A4C12B211FA72C00500C4C /* AddBookViewController.swift */,
 				C5A4C129211F975A00500C4C /* BookTableViewController.swift */,
+				C536C4B82122317B006DA267 /* BookDetailViewController.swift */,
 			);
 			path = viewControllers;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				C5A4C1372120CD1100500C4C /* BookTableViewCell.swift in Sources */,
 				C5A4C12A211F975A00500C4C /* BookTableViewController.swift in Sources */,
 				C5A4C130211FB76700500C4C /* BooksAPIClient.swift in Sources */,
+				C536C4B92122317B006DA267 /* BookDetailViewController.swift in Sources */,
 				C5A4C128211F805D00500C4C /* Book.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

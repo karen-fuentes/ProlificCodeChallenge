@@ -49,9 +49,11 @@ class AddBookViewController: UIViewController {
         BooksAPIClient.manager.createBook(book: bookToPost, completionHandler: { (response) in
 
             self.alertUserBookWasPosted()
+            
         }, errorHandler: { print($0) } )
-        //self.dismiss(animated: true, completion: nil)
+     
     }
+    
     func alertUserBookWasPosted() {
         let alertController = UIAlertController(title: "The book Was Posted Successfully!", message: nil, preferredStyle: .alert)
         
@@ -61,6 +63,7 @@ class AddBookViewController: UIViewController {
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    
     func alertUserOfMissingFields(){
         let alertController = UIAlertController(title: "Missing Fields!", message: "You must have title and author in order to submit", preferredStyle: .alert)
         

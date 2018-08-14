@@ -65,6 +65,12 @@ class BookTableViewController: UITableViewController {
         return bookCell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let destinationVC = BookDetailViewController()
+        destinationVC.book =  self.collectionOfBooks[indexPath.row] 
+        navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
 
     /*
     // MARK: - Navigation
