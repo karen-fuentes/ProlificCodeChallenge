@@ -35,6 +35,27 @@ struct BooksAPIClient {
         APIRequestManager.manager.performDataTask(with: urlRequest, completionHandler: completion, errorHandler: errorHandler)
     }
     
+    func getBookWith(id: String, completionHandler: @escaping (Book) -> Void, errorHandler: @escaping (Error) -> Void) {
+        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books/\(id)/"
+        guard let url = URL(string: stringURL) else {
+            errorHandler(AppError.badURL(str: stringURL))
+            return
+        }
+        let urlRequest = URLRequest(url: url)
+        let completion: (Data) -> Void = {(data: Data) in
+            do {
+                let event = try JSONDecoder().decode(Book.self, from: data)
+                completionHandler(event)
+            }
+            catch {
+                errorHandler(AppError.couldNotParseJSON(rawError: error))
+            }
+        }
+        
+            APIRequestManager.manager.performDataTask(with: urlRequest, completionHandler: completion, errorHandler: errorHandler)
+    }
+    
+    
     // MARK: - POST Request
     func createBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
         
@@ -52,5 +73,47 @@ struct BooksAPIClient {
         APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
             completionHandler(response)
         }, errorHandler: { print($0) })
+    }
+
+    func updateBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping(Error) -> Void) {
+        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books/\(book.id)/"
+        guard let url = URL(string: stringURL) else {
+            errorHandler(AppError.badURL(str: stringURL))
+            return
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "PUT"
+        
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+      let editedBook = Book(author: book.author, categories: book.categories, id: book.id, lastCheckedOut: nil, lastCheckedOutBy: book.lastCheckedOutBy, publisher: book.publisher, title: book.title, url: book.url)
+
+        do {
+            let encodedBody = try JSONEncoder().encode(editedBook)
+            urlRequest.httpBody = encodedBody
+            APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
+                completionHandler(response)
+            }, errorHandler: {print($0)})
+            
+        } catch let error {
+            errorHandler(error)
+        }
+    }
+    
+
+    
+    // MARK: - DELETE Request
+    func deleteBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
+        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books/\(book.id)/"
+        guard let url = URL(string: stringURL) else {
+            errorHandler(AppError.badURL(str: stringURL))
+            return
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "DELETE"
+        APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
+            completionHandler(response)
+        }, errorHandler: { print($0) })
+        
     }
 }

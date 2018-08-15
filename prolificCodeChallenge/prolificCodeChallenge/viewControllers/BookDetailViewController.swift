@@ -7,20 +7,67 @@
 //
 
 import UIKit
+import Social
 
 class BookDetailViewController: UIViewController {
     var book: Book!
     let stackView = UIStackView()
+    var name = String()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Detail"
         self.view.backgroundColor = .red
-        //print(book.author, book.categories, book.id, book.url)
         setUpViews()
         configureConstraints()
-
-        // Do any additional setup after loading the view.
+        setNavigationBar()
+        
+    }
+    
+    func setNavigationBar() {
+        self.navigationItem.title = "Share"
+        let shareButton = UIBarButtonItem.init(title: "Share", style: .plain, target: self, action: #selector(shareButtonWasPressed))
+        //init(barButtonSystemItem: .done, target: self, action: #selector(shareButtonWasPressed))
+        self.navigationItem.rightBarButtonItem = shareButton
+    }
+    
+    @objc func shareButtonWasPressed() {
+       let activityController = UIActivityViewController(activityItems: [self.book], applicationActivities: nil)
+        self.present(activityController, animated: true, completion: nil)
+       // activityController.excludedActivityTypes = [UIActivityT]
+    }
+    
+    @objc func checkOutButtonWasTapped() {
+        let alert = UIAlertController(title: "Please input your name", message: nil , preferredStyle: UIAlertControllerStyle.alert)
+        let action = UIAlertAction(title: "Save", style: .default) { (alertAction) in
+            let txtField = alert.textFields![0] as UITextField
+            self.name = txtField.text!
+            self.book.lastCheckedOutBy = self.name
+            //self.book.lastCheckedOutBy = "Karen"
+            BooksAPIClient.manager.updateBook(book: self.book, completionHandler: { (respond) in
+            }, errorHandler: {print($0)})
+        }
+    
+        alert.addTextField { (textField) in
+            textField.placeholder = "Enter your name"
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+      
+    }
+    
+   @objc func deleteButtonWasPressed() {
+        BooksAPIClient.manager.deleteBook(book: self.book, completionHandler: { (respond) in
+        }, errorHandler: {print($0)})
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let id = String(book.id)
+        BooksAPIClient.manager.getBookWith(id: id, completionHandler: { (respond) in
+        }, errorHandler: {print($0)})
+        
     }
 
    
@@ -180,6 +227,7 @@ class BookDetailViewController: UIViewController {
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         button.backgroundColor = .gray
+        button.addTarget(self, action: #selector(checkOutButtonWasTapped), for: .touchUpInside)
         return button
     }()
     
@@ -191,6 +239,7 @@ class BookDetailViewController: UIViewController {
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
+        button.addTarget(self, action: #selector(deleteButtonWasPressed), for: .touchUpInside)
         return button
     }()
 }

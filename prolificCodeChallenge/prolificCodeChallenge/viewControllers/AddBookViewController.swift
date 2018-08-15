@@ -49,6 +49,7 @@ class AddBookViewController: UIViewController {
         BooksAPIClient.manager.createBook(book: bookToPost, completionHandler: { (response) in
 
             self.alertUserBookWasPosted()
+            dump(response)
             
         }, errorHandler: { print($0) } )
      
