@@ -17,7 +17,7 @@ class BookDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = bookView
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = .lighterGray
         self.setLabelsAndButtonFunctions()
         self.setNavigationBar()
     }

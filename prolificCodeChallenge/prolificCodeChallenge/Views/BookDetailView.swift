@@ -15,14 +15,13 @@ class BookDetailView: UIView {
     // MARK: init methods
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .lilac
         viewHierarchy()
         configureConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.backgroundColor = .lilac
+        self.backgroundColor = .clear
         viewHierarchy()
         configureConstraints()
     }
@@ -84,8 +83,6 @@ class BookDetailView: UIView {
         stackView.addArrangedSubview(checkoutButton)
         stackView.addArrangedSubview(deleteButton)
         self.addSubview(stackView)
-       // self.addSubview(checkoutButton)
-        //self.addSubview(deleteButton)
     }
     
     //MARK: - UI Objects
@@ -95,7 +92,10 @@ class BookDetailView: UIView {
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
         lbl.textAlignment = .left
-        lbl.backgroundColor = .lighterGray
+        lbl.backgroundColor = .lightBlue
+        lbl.layer.borderColor = UIColor.blue.cgColor
+        lbl.layer.cornerRadius = 5
+        lbl.layer.masksToBounds = true
         return lbl
     }()
     
@@ -105,51 +105,64 @@ class BookDetailView: UIView {
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
         lbl.textAlignment = .left
-        lbl.backgroundColor = .lighterGray
+        lbl.backgroundColor = .lightBlue
+        lbl.layer.borderColor = UIColor.blue.cgColor
+        lbl.layer.cornerRadius = 5
+        lbl.layer.masksToBounds = true
         return lbl
     }()
     
     lazy var publisherLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .black
-        lbl.font = UIFont(name: "Avenir-Light", size: 14)
+        lbl.numberOfLines = 2
+        lbl.font = UIFont(name: "Avenir", size: 14)
         lbl.lineBreakMode = .byWordWrapping
         lbl.textAlignment = .left
-        lbl.backgroundColor = .lighterGray
+        lbl.backgroundColor = .lightBlue
+        lbl.layer.borderColor = UIColor.blue.cgColor
+        lbl.layer.cornerRadius = 5
+        lbl.layer.masksToBounds = true
         return lbl
     }()
     
     lazy var categoriesLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .black
-        lbl.font = UIFont(name: "Avenir-Light", size: 14)
+        lbl.font = UIFont(name: "Avenir", size: 14)
         lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
         lbl.textAlignment = .left
-        lbl.backgroundColor = .lighterGray
+        lbl.backgroundColor = .lightBlue
+        lbl.layer.borderColor = UIColor.blue.cgColor
+        lbl.layer.cornerRadius = 5
+        lbl.layer.masksToBounds = true
         return lbl
     }()
     
     lazy var lastCheckedOutByLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .black
-        lbl.font = UIFont(name: "Avenir-Light", size: 14)
-        lbl.numberOfLines = 3
+        lbl.font = UIFont(name: "Avenir", size: 14)
+        lbl.numberOfLines = 2
         lbl.lineBreakMode = .byWordWrapping
         lbl.textAlignment = .left
-        lbl.backgroundColor = .lighterGray
+        lbl.backgroundColor = .lightBlue
+        lbl.layer.borderColor = UIColor.blue.cgColor
+        lbl.layer.cornerRadius = 5
+        lbl.layer.masksToBounds = true
         return lbl
     }()
     
     lazy var checkoutButton: UIButton = {
         let button = UIButton()
         button.setTitle("Check Out", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
-        button.backgroundColor = .lightBlue
+        button.backgroundColor = .blue
         return button
     }()
     
