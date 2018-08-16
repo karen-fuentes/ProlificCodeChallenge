@@ -18,28 +18,32 @@ class BookDetailViewController: UIViewController {
         super.viewDidLoad()
         self.view = bookView
         self.view.backgroundColor = .lighterGray
-        self.setLabelsAndButtonFunctions()
+        self.setLabels(book: book)
         self.setNavigationBar()
+        //target actions
+        self.bookView.checkoutButton.addTarget(self, action: #selector(checkOutButtonWasTapped), for: .touchUpInside)
+        self.bookView.deleteButton.addTarget(self, action: #selector(deleteButtonWasPressed), for: .touchUpInside)
+        self.bookView.edit.addTarget(self, action: #selector(editButtonWasTapped), for: .touchUpInside)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.getBookWithID(id: book.id, checkingOut: false)
     }
     
     //MARK: Setting labels, targets, navigation item
     //sets all the labels when viewDidLoad is called
     //add target to button
-    private func setLabelsAndButtonFunctions() {
-        var checkoutLabelText = "Last Checked Out By: "
+    private func setLabels(book: Book, checkingOut: Bool = false) {
         self.bookView.titleLabel.text = "Title:  \(self.book.title)"
         self.bookView.authorLabel.text = "Author: \(self.book.author)"
         self.bookView.publisherLabel.text = "Publishers: \(self.book.publisher)"
-        if let lastCheckedOut = self.book.lastCheckedOut,
-            let lastCheckedOutBy = self.book.lastCheckedOutBy {
-            checkoutLabelText += "\(lastCheckedOutBy) @ \(String(describing: lastCheckedOut.dateStringToReadableString()))"
-        } else {
-            checkoutLabelText += "None"
-        }
         self.bookView.categoriesLabel.text = "Categories: \(self.book.categories)"
-        self.bookView.lastCheckedOutByLabel.text = checkoutLabelText
-        self.bookView.checkoutButton.addTarget(self, action: #selector(checkOutButtonWasTapped), for: .touchUpInside)
-        self.bookView.deleteButton.addTarget(self, action: #selector(deleteButtonWasPressed), for: .touchUpInside)
+        guard let time = self.book.lastCheckedOut else{return}
+        guard let borrower = self.book.lastCheckedOutBy else {return}
+        //only when checking out... checkout by is updated
+        if checkingOut {
+            self.bookView.lastCheckedOutByLabel.text = "Last Checked Out By: \(borrower) @ \(time.dateStringToReadableString())"
+        }
     }
     
     //setting share naviagtion item and bar title
@@ -81,7 +85,7 @@ class BookDetailViewController: UIViewController {
             self.book.lastCheckedOutBy = name
             //PUT Request - once its successful a get request with id is made to update view
             BooksAPIClient.manager.editOrCreateBook(requestMethod: .put, book: self.book, completionHandler: { (response) in
-                self.getBookWithID(id: self.book.id)
+                self.getBookWithID(id: self.book.id, checkingOut: true)
             }, errorHandler: {print($0)})
         }
         alert.addTextField { (textField) in
@@ -118,18 +122,22 @@ class BookDetailViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    //MARK: Target Method
+    @objc private func editButtonWasTapped() {
+        let destinationVC = EditBookViewController()
+        destinationVC.book = self.book
+        self.navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
     //MARK: - GET WITH ID
     // if user checks out book a get request with id number needs to be made to update the view
-    private func getBookWithID(id: Int) {
+    func getBookWithID(id: Int, checkingOut: Bool) {
         let stringID = String(id)
         //get with id request
         BooksAPIClient.manager.getBookWith(id: stringID, completionHandler: { (response) in
             //when completion handler comes back it updates the labels
             self.book = response
-            //self.bookView.lastCheckedOutLabel.text = self.book.lastCheckedOut?.dateStringToReadableString()
-            guard let time = self.book.lastCheckedOut else{return}
-            guard let borrower = self.book.lastCheckedOutBy else {return}
-            self.bookView.lastCheckedOutByLabel.text = "Last Checked Out By: \(borrower) @ \(time.dateStringToReadableString())"
+            self.setLabels(book: self.book, checkingOut: checkingOut)
         }, errorHandler: {print($0)})
     }
 }

@@ -64,7 +64,11 @@ class BookDetailView: UIView {
             
             deleteButton.topAnchor.constraint(equalTo: checkoutButton.bottomAnchor, constant: 20),
             deleteButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
-            deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
+            deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
+            
+            edit.topAnchor.constraint(equalTo: deleteButton.bottomAnchor, constant: 20),
+            edit.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
+            edit.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
             ].map({$0.isActive = true })
     }
     
@@ -82,6 +86,7 @@ class BookDetailView: UIView {
         stackView.addArrangedSubview(lastCheckedOutByLabel)
         stackView.addArrangedSubview(checkoutButton)
         stackView.addArrangedSubview(deleteButton)
+        stackView.addArrangedSubview(edit)
         self.addSubview(stackView)
     }
     
@@ -171,6 +176,17 @@ class BookDetailView: UIView {
         button.setTitle("Delete Book", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .red
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.clipsToBounds = true
+        return button
+    }()
+    
+    lazy var edit: UIButton = {
+        let button = UIButton()
+        button.setTitle("Edit Book", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .lilac
         button.layer.borderWidth = 1
         button.layer.cornerRadius = 5
         button.clipsToBounds = true

@@ -24,6 +24,7 @@
 		C5A4C130211FB76700500C4C /* BooksAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A4C12F211FB76700500C4C /* BooksAPIClient.swift */; };
 		C5A4C1372120CD1100500C4C /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A4C1362120CD1100500C4C /* BookTableViewCell.swift */; };
 		C5D290D72125EFE900FBD3C0 /* book.json in Resources */ = {isa = PBXBuildFile; fileRef = C5D290D62125EFE900FBD3C0 /* book.json */; };
+		C5D290DF2126274400FBD3C0 /* EditBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D290DE2126274400FBD3C0 /* EditBookViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		C5A4C12F211FB76700500C4C /* BooksAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksAPIClient.swift; sourceTree = "<group>"; };
 		C5A4C1362120CD1100500C4C /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		C5D290D62125EFE900FBD3C0 /* book.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = book.json; sourceTree = "<group>"; };
+		C5D290DE2126274400FBD3C0 /* EditBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBookViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 				C5A4C12B211FA72C00500C4C /* AddBookViewController.swift */,
 				C5A4C129211F975A00500C4C /* BookTableViewController.swift */,
 				C536C4B82122317B006DA267 /* BookDetailViewController.swift */,
+				C5D290DE2126274400FBD3C0 /* EditBookViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				C536C4B92122317B006DA267 /* BookDetailViewController.swift in Sources */,
 				C536C4C721249248006DA267 /* String+Extension.swift in Sources */,
 				C5A4C128211F805D00500C4C /* Book.swift in Sources */,
+				C5D290DF2126274400FBD3C0 /* EditBookViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
