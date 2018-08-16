@@ -10,10 +10,11 @@ import Foundation
 struct BooksAPIClient {
     private init() { }
     static let manager = BooksAPIClient()
+    private let endpoint = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/"
     
     // MARK: - GET Request (all books)
     func getAllBooks(completionHandler: @escaping ([Book]) -> Void, errorHandler: @escaping (Error) -> Void) {
-        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books"
+        let stringURL = endpoint + "books/"
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))
             return
@@ -37,7 +38,8 @@ struct BooksAPIClient {
     }
     // MARK: GET Request w/ id
     func getBookWith(id: String, completionHandler: @escaping (Book) -> Void, errorHandler: @escaping (Error) -> Void) {
-        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books/\(id)/"
+        
+        let stringURL = endpoint + "books/\(id)/"
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))
             return
@@ -58,7 +60,7 @@ struct BooksAPIClient {
     
     // MARK: - POST Request
     func createBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
-        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books"
+        let stringURL = endpoint + "books/"
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))
             return
@@ -76,7 +78,7 @@ struct BooksAPIClient {
     
     // MARK: - PUT Request
     func updateBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping(Error) -> Void) {
-        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books/\(book.id)/"
+        let stringURL = endpoint + "books/\(book.id)/"
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))
             return
@@ -101,28 +103,25 @@ struct BooksAPIClient {
     }
     
     // MARK: - DELETE Request
-    func deleteBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
-        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books/\(book.id)/"
-        guard let url = URL(string: stringURL) else {
-            errorHandler(AppError.badURL(str: stringURL))
-            return
-        }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "DELETE"
-        APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
-            completionHandler(response)
-        }, errorHandler: { print($0) })
-    }
     
-    // MARK: - DELETE all Books
-    func deleteAllBooks(completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
-        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/clean"
+    func delete(allBooks:Bool, book: Book?,
+                completionHandler: @escaping (URLResponse) -> Void,
+                errorHandler: @escaping (Error) -> Void) {
+        
+        var stringURL = endpoint
+        
+        if allBooks {
+            stringURL += "clean"
+        } else {stringURL += "books/\(book!.id)/"}
+        
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))
             return
         }
+        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "DELETE"
+        
         APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
             completionHandler(response)
         }, errorHandler: { print($0) })

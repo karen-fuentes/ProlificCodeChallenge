@@ -64,16 +64,13 @@ class BookTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation Item Button Functionality
-    // deletes all books
-    // if user wants to delete.. deleteAllBooks is called and once completion handler is done
-    // table view is reloaded
     @objc private func deleteAllButtonWasTapped(){
         //alerts user to ask if they are sure they want to delete all the books
         let alert = UIAlertController(title: "Delete All", message: "Are you sure you want to delete all of your books? 🤔", preferredStyle: UIAlertControllerStyle.alert)
         //delete button
         alert.addAction(UIAlertAction(title: "Delete", style:  UIAlertActionStyle.destructive, handler: { (alert) in
             // when delete is pressed /clean/ endpoint is used with delete request
-            BooksAPIClient.manager.deleteAllBooks(completionHandler: { (response) in
+            BooksAPIClient.manager.delete(allBooks: true, book: nil, completionHandler: { (response) in
                 DispatchQueue.main.async {
                     //load books again since data has changed
                     self.loadBooks()
@@ -82,7 +79,6 @@ class BookTableViewController: UITableViewController {
         }))
         //cancel button
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { (alert) in
-            //dismisses alert controller if cancel is pressed
             self.dismiss(animated: true, completion: nil)
         }))
         self.present(alert, animated: true, completion: nil)

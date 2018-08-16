@@ -55,17 +55,17 @@ class BookDetailViewController: UIViewController {
         let bookToShare = "Hey I want to share this book: \(self.book.title), by: \(self.book.author)"
         let activityController = UIActivityViewController(activityItems: [bookToShare], applicationActivities: nil)
         activityController.excludedActivityTypes = [UIActivityType.postToWeibo,
-        UIActivityType.message,
-        UIActivityType.mail,
-        UIActivityType.print,
-        UIActivityType.copyToPasteboard,
-        UIActivityType.assignToContact,
-        UIActivityType.saveToCameraRoll,
-        UIActivityType.addToReadingList,
-        UIActivityType.postToFlickr,
-        UIActivityType.postToVimeo,
-        UIActivityType.postToTencentWeibo,
-        UIActivityType.airDrop];
+                                                    UIActivityType.message,
+                                                    UIActivityType.mail,
+                                                    UIActivityType.print,
+                                                    UIActivityType.copyToPasteboard,
+                                                    UIActivityType.assignToContact,
+                                                    UIActivityType.saveToCameraRoll,
+                                                    UIActivityType.addToReadingList,
+                                                    UIActivityType.postToFlickr,
+                                                    UIActivityType.postToVimeo,
+                                                    UIActivityType.postToTencentWeibo,
+                                                    UIActivityType.airDrop];
         self.present(activityController, animated: true, completion: nil)
     }
     
@@ -100,7 +100,7 @@ class BookDetailViewController: UIViewController {
         let alert = UIAlertController(title: "Delete", message: "Are you sure you want to delete this book?", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: { (alert) in
             //delete request
-            BooksAPIClient.manager.deleteBook(book: self.book, completionHandler: { (respond) in
+            BooksAPIClient.manager.delete(allBooks: false, book: self.book, completionHandler: { (response) in
                 // successful delete request alerts user the the delete was successful
                 let successfulDeleteAlert = UIAlertController(title: "Succesful!", message: "You Succesfully Deleted This Book", preferredStyle: UIAlertControllerStyle.alert)
                 successfulDeleteAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { (alert) in
