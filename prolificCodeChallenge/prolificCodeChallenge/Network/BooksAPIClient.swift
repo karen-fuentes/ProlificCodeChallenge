@@ -44,8 +44,8 @@ struct BooksAPIClient {
         let urlRequest = URLRequest(url: url)
         let completion: (Data) -> Void = {(data: Data) in
             do {
-                let event = try JSONDecoder().decode(Book.self, from: data)
-                completionHandler(event)
+                let book = try JSONDecoder().decode(Book.self, from: data)
+                completionHandler(book)
             }
             catch {
                 errorHandler(AppError.couldNotParseJSON(rawError: error))
@@ -116,4 +116,19 @@ struct BooksAPIClient {
         }, errorHandler: { print($0) })
         
     }
+
+
+func deleteAllBooks(completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
+    let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/clean"
+    guard let url = URL(string: stringURL) else {
+        errorHandler(AppError.badURL(str: stringURL))
+        return
+    }
+    var urlRequest = URLRequest(url: url)
+    urlRequest.httpMethod = "DELETE"
+    APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
+        completionHandler(response)
+    }, errorHandler: { print($0) })
+    
+}
 }

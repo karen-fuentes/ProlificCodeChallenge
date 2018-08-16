@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		C536C4B92122317B006DA267 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C536C4B82122317B006DA267 /* BookDetailViewController.swift */; };
 		C536C4BB2123252F006DA267 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C536C4BA2123252F006DA267 /* Defaults.swift */; };
+		C536C4C721249248006DA267 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C536C4C621249248006DA267 /* String+Extension.swift */; };
+		C536C4C921249E8C006DA267 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C536C4C821249E8C006DA267 /* UIColor+Extension.swift */; };
+		C536C4CB2124A718006DA267 /* BookTableViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C536C4CA2124A718006DA267 /* BookTableViewController+Extension.swift */; };
+		C536C4D12124B2E2006DA267 /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C536C4D02124B2E2006DA267 /* AddBookView.swift */; };
+		C536C4D32124E0EE006DA267 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C536C4D22124E0EE006DA267 /* BookDetailView.swift */; };
 		C5A4C108211F5BA300500C4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A4C107211F5BA300500C4C /* AppDelegate.swift */; };
 		C5A4C10F211F5BA900500C4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C5A4C10E211F5BA900500C4C /* Assets.xcassets */; };
 		C5A4C112211F5BA900500C4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C5A4C110211F5BA900500C4C /* LaunchScreen.storyboard */; };
@@ -38,6 +43,11 @@
 		C536C4BF212385C8006DA267 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.35.0/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
 		C536C4C1212385D7006DA267 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.35.0/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
 		C536C4C3212385E5006DA267 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "../../../Downloads/FacebookSDKs-iOS-4.35.0/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		C536C4C621249248006DA267 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		C536C4C821249E8C006DA267 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		C536C4CA2124A718006DA267 /* BookTableViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookTableViewController+Extension.swift"; sourceTree = "<group>"; };
+		C536C4D02124B2E2006DA267 /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
+		C536C4D22124E0EE006DA267 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		C5A4C104211F5BA300500C4C /* prolificCodeChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = prolificCodeChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5A4C107211F5BA300500C4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C5A4C10E211F5BA900500C4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -83,6 +93,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		C536C4C521249222006DA267 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C536C4C621249248006DA267 /* String+Extension.swift */,
+				C536C4C821249E8C006DA267 /* UIColor+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C536C4CC2124A95B006DA267 /* View Controller Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C536C4CA2124A718006DA267 /* BookTableViewController+Extension.swift */,
+			);
+			path = "View Controller Extensions";
+			sourceTree = "<group>";
+		};
+		C536C4CF2124B28C006DA267 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C536C4D02124B2E2006DA267 /* AddBookView.swift */,
+				C536C4D22124E0EE006DA267 /* BookDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C5A4C0FB211F5BA300500C4C = {
 			isa = PBXGroup;
 			children = (
@@ -105,8 +141,10 @@
 		C5A4C106211F5BA300500C4C /* prolificCodeChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				C536C4CF2124B28C006DA267 /* Views */,
+				C536C4C521249222006DA267 /* Extensions */,
 				C5A4C1342120CC2700500C4C /* Models */,
-				C5A4C1332120CC1800500C4C /* viewControllers */,
+				C5A4C1332120CC1800500C4C /* Controllers */,
 				C5A4C1322120CBD000500C4C /* supporting files */,
 				C5A4C1312120C57D00500C4C /* Network */,
 				C5A4C113211F5BA900500C4C /* Info.plist */,
@@ -142,15 +180,16 @@
 			path = "supporting files";
 			sourceTree = "<group>";
 		};
-		C5A4C1332120CC1800500C4C /* viewControllers */ = {
+		C5A4C1332120CC1800500C4C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C536C4CC2124A95B006DA267 /* View Controller Extensions */,
 				C5A4C1352120CCF400500C4C /* Cells */,
 				C5A4C12B211FA72C00500C4C /* AddBookViewController.swift */,
 				C5A4C129211F975A00500C4C /* BookTableViewController.swift */,
 				C536C4B82122317B006DA267 /* BookDetailViewController.swift */,
 			);
-			path = viewControllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		C5A4C1342120CC2700500C4C /* Models */ = {
@@ -273,11 +312,16 @@
 				C536C4BB2123252F006DA267 /* Defaults.swift in Sources */,
 				C5A4C108211F5BA300500C4C /* AppDelegate.swift in Sources */,
 				C5A4C12C211FA72C00500C4C /* AddBookViewController.swift in Sources */,
+				C536C4C921249E8C006DA267 /* UIColor+Extension.swift in Sources */,
+				C536C4CB2124A718006DA267 /* BookTableViewController+Extension.swift in Sources */,
+				C536C4D12124B2E2006DA267 /* AddBookView.swift in Sources */,
+				C536C4D32124E0EE006DA267 /* BookDetailView.swift in Sources */,
 				C5A4C12E211FB6B000500C4C /* APIRequestManager.swift in Sources */,
 				C5A4C1372120CD1100500C4C /* BookTableViewCell.swift in Sources */,
 				C5A4C12A211F975A00500C4C /* BookTableViewController.swift in Sources */,
 				C5A4C130211FB76700500C4C /* BooksAPIClient.swift in Sources */,
 				C536C4B92122317B006DA267 /* BookDetailViewController.swift in Sources */,
+				C536C4C721249248006DA267 /* String+Extension.swift in Sources */,
 				C5A4C128211F805D00500C4C /* Book.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

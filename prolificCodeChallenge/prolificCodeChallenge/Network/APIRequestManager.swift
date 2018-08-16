@@ -49,6 +49,7 @@ class APIRequestManager {
             }
             }.resume()
     }
+    
     func performDataTask(with request: URLRequest, completionResponse: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
         self.urlSession.dataTask(with: request){(data: Data?, response: URLResponse?, error: Error?) in
             DispatchQueue.main.async {
