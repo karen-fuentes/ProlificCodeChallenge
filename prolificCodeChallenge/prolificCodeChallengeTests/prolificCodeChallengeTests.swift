@@ -11,26 +11,52 @@ import XCTest
 
 class prolificCodeChallengeTests: XCTestCase {
     
+    var bookAPIClientUnderTest: BooksAPIClient!
+    var apiManagerUnderTest: APIRequestManager!
+    var sessionUnderTest: URLSession!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        sessionUnderTest = URLSession(configuration: .default)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sessionUnderTest = nil
+        bookAPIClientUnderTest = nil
+        apiManagerUnderTest = nil
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testingDateToString() {
+        //arrange
+        let date = "2018-08-16 17:25:27"
+        let expectedDate = "Aug 16, 2018   1:25PM"
+        //action
+        let result = date.dateStringToReadableString()
+        //assert
+        XCTAssertTrue(expectedDate == result)
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+
+    //testing asychronous calls: Success fast, failure slow
+    func testValidCallToProlificGetsHTTPStatusCode200() {
+            //arrange
+            let url = URL(string: "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books/")
+            let promise = expectation(description: "Status code: 200")
+            //act
+            let dataTask = sessionUnderTest.dataTask(with: url!) { data, response, error in
+                if let error = error {
+                    //Assert
+                    XCTFail("Error: \(error.localizedDescription)")
+                    return
+                } else if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                    if statusCode == 200 {
+                        promise.fulfill()
+                    } else {
+                        XCTFail("Status code: \(statusCode)")
+                    }
+                }
+            }
+            dataTask.resume()
+            waitForExpectations(timeout: 5, handler: nil)
         }
-    }
-    
 }

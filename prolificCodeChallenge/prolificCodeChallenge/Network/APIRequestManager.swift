@@ -24,7 +24,8 @@ class APIRequestManager {
     private init() {}
     //Mark: -Properties
     static let manager = APIRequestManager()
-    private let urlSession = URLSession(configuration: URLSessionConfiguration.default)
+    //for testing purposes
+    var defaultSession = URLSession(configuration: .default)
     
     /// gets data with given url and handles errors if they are encountered
     ///
@@ -33,7 +34,7 @@ class APIRequestManager {
     ///   - completion handler: after data arrive it runs the completion handler.
     ///   - errorHandler: returns an error if an error occurs.
     func performDataTask(with request: URLRequest, completionHandler: @escaping (Data) -> Void, errorHandler: @escaping (Error) -> Void) {
-        self.urlSession.dataTask(with: request){(data: Data?, response: URLResponse?, error: Error?) in
+        self.defaultSession.dataTask(with: request){(data: Data?, response: URLResponse?, error: Error?) in
             DispatchQueue.main.async {
                 guard let data = data else {
                     errorHandler(AppError.noData)
@@ -55,7 +56,7 @@ class APIRequestManager {
     ///   - completion handler: after response arrives it runs the completion handler.
     ///   - errorHandler: returns an error if an error occurs.
     func performDataTask(with request: URLRequest, completionResponse: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
-        self.urlSession.dataTask(with: request){(data: Data?, response: URLResponse?, error: Error?) in
+        self.defaultSession.dataTask(with: request){(data: Data?, response: URLResponse?, error: Error?) in
             DispatchQueue.main.async {
                 guard let response = response else {
                     errorHandler(AppError.noResponse)

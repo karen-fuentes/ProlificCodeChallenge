@@ -23,6 +23,7 @@
 		C5A4C12E211FB6B000500C4C /* APIRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A4C12D211FB6B000500C4C /* APIRequestManager.swift */; };
 		C5A4C130211FB76700500C4C /* BooksAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A4C12F211FB76700500C4C /* BooksAPIClient.swift */; };
 		C5A4C1372120CD1100500C4C /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A4C1362120CD1100500C4C /* BookTableViewCell.swift */; };
+		C5D290D72125EFE900FBD3C0 /* book.json in Resources */ = {isa = PBXBuildFile; fileRef = C5D290D62125EFE900FBD3C0 /* book.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 		C5A4C12D211FB6B000500C4C /* APIRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestManager.swift; sourceTree = "<group>"; };
 		C5A4C12F211FB76700500C4C /* BooksAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksAPIClient.swift; sourceTree = "<group>"; };
 		C5A4C1362120CD1100500C4C /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
+		C5D290D62125EFE900FBD3C0 /* book.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = book.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				C5A4C11C211F5BAA00500C4C /* prolificCodeChallengeTests.swift */,
+				C5D290D62125EFE900FBD3C0 /* book.json */,
 				C5A4C11E211F5BAA00500C4C /* Info.plist */,
 			);
 			path = prolificCodeChallengeTests;
@@ -296,6 +299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5D290D72125EFE900FBD3C0 /* book.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
