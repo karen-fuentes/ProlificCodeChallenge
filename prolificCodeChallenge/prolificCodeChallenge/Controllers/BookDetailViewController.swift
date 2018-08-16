@@ -80,7 +80,7 @@ class BookDetailViewController: UIViewController {
             guard let name = txtField.text else {return}
             self.book.lastCheckedOutBy = name
             //PUT Request - once its successful a get request with id is made to update view
-            BooksAPIClient.manager.updateBook(book: self.book, completionHandler: { (respond) in
+            BooksAPIClient.manager.editOrCreateBook(requestMethod: .put, book: self.book, completionHandler: { (response) in
                 self.getBookWithID(id: self.book.id)
             }, errorHandler: {print($0)})
         }

@@ -61,11 +61,12 @@ class AddBookViewController: UIViewController {
             let title = addBookView.titleTextField.text else {return}
         // create a book object to post
         let bookToPost = Book(author: author, categories: categories, id: 0, lastCheckedOut: nil, lastCheckedOutBy: nil, publisher: publisher, title: title, url: "")
+        
         // use Book Api Client to make a post request once the completion handler is done i.e post request was made
         //user is notified that the book they created was made succesfully
-        BooksAPIClient.manager.createBook(book: bookToPost, completionHandler: { (response) in
+        BooksAPIClient.manager.editOrCreateBook(requestMethod: .post, book: bookToPost, completionHandler: { (response) in
             self.alertUserBookWasPosted()
-        }, errorHandler: { print($0) } )
+        }, errorHandler: {print($0)})
     }
     
     // MARK: - Alert User Functions

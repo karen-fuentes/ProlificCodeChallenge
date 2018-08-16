@@ -6,8 +6,15 @@
 //  Copyright © 2018 Karen Fuentes. All rights reserved.
 //
 import Foundation
+
+// http methods
+enum HttpMethod : String {
+    case put, post
+}
+
 //API Client that creates, edits, and deletes book
 struct BooksAPIClient {
+    
     private init() { }
     static let manager = BooksAPIClient()
     private let endpoint = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/"
@@ -36,6 +43,7 @@ struct BooksAPIClient {
         }
         APIRequestManager.manager.performDataTask(with: urlRequest, completionHandler: completion, errorHandler: errorHandler)
     }
+    
     // MARK: GET Request w/ id
     func getBookWith(id: String, completionHandler: @escaping (Book) -> Void, errorHandler: @escaping (Error) -> Void) {
         
@@ -58,40 +66,29 @@ struct BooksAPIClient {
     }
     
     
-    // MARK: - POST Request
-    func createBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
-        let stringURL = endpoint + "books/"
+    // MARK: - PUT & POST Request
+    func editOrCreateBook(requestMethod: HttpMethod, book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping(Error) -> Void) {
+        var stringURL = endpoint
+        
+        switch requestMethod {
+        case .put:
+            stringURL += "books/\(book.id)/"
+        case .post:
+            stringURL += "books/"
+        }
+        
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))
             return
         }
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        
-        let postString = "author=\(book.author)&categories=\(book.categories)&publisher=\(book.publisher)&title=\(book.title)"
-        urlRequest.httpBody = postString.data(using: .utf8)
-        
-        APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
-            completionHandler(response)
-        }, errorHandler: { print($0) })
-    }
-    
-    // MARK: - PUT Request
-    func updateBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping(Error) -> Void) {
-        let stringURL = endpoint + "books/\(book.id)/"
-        guard let url = URL(string: stringURL) else {
-            errorHandler(AppError.badURL(str: stringURL))
-            return
-        }
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "PUT"
+        urlRequest.httpMethod = requestMethod.rawValue
         
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let editedBook = Book(author: book.author, categories: book.categories, id: book.id, lastCheckedOut: nil, lastCheckedOutBy: book.lastCheckedOutBy, publisher: book.publisher, title: book.title, url: book.url)
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
         
         do {
-            let encodedBody = try JSONEncoder().encode(editedBook)
+            let encodedBody = try JSONEncoder().encode(book)
             urlRequest.httpBody = encodedBody
             APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
                 completionHandler(response)
@@ -102,8 +99,8 @@ struct BooksAPIClient {
         }
     }
     
-    // MARK: - DELETE Request
     
+    // MARK: - DELETE Request
     func delete(allBooks:Bool, book: Book?,
                 completionHandler: @escaping (URLResponse) -> Void,
                 errorHandler: @escaping (Error) -> Void) {
@@ -112,8 +109,10 @@ struct BooksAPIClient {
         
         if allBooks {
             stringURL += "clean"
-        } else {stringURL += "books/\(book!.id)/"}
-        
+        } else {
+            stringURL += "books/\(book!.id)/"
+        }
+    
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))
             return
@@ -121,7 +120,6 @@ struct BooksAPIClient {
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "DELETE"
-        
         APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
             completionHandler(response)
         }, errorHandler: { print($0) })
