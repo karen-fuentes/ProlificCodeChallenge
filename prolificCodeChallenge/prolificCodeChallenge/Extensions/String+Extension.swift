@@ -7,18 +7,18 @@
 //
 
 import Foundation
-
+// extension on string to make date readable to user
 extension String {
-
+    
     func dateStringToReadableString() -> String {
-
+        
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss zzz"
         let date = dateFormatter.date(from: self + " GMT")
-
+        
         let newFormatter = DateFormatter()
         newFormatter.dateFormat = "MMM d, yyyy   h:mma"
-
+        
         if let date = date {
             return newFormatter.string(from: date)
         } else {

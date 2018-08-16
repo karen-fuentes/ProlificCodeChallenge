@@ -7,7 +7,8 @@
 //
 
 import Foundation
-
+// Object/container that contains book attributes it conforms to codable protocol to allow
+// for the encoding and decoding of data
 struct Book: Codable {
     var author: String
     var categories: String

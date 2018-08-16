@@ -6,6 +6,7 @@
 //  Copyright © 2018 Karen Fuentes. All rights reserved.
 //
 import Foundation
+//API Client that creates, edits, and deletes book
 struct BooksAPIClient {
     private init() { }
     static let manager = BooksAPIClient()
@@ -34,7 +35,7 @@ struct BooksAPIClient {
         }
         APIRequestManager.manager.performDataTask(with: urlRequest, completionHandler: completion, errorHandler: errorHandler)
     }
-    
+    // MARK: GET Request w/ id
     func getBookWith(id: String, completionHandler: @escaping (Book) -> Void, errorHandler: @escaping (Error) -> Void) {
         let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books/\(id)/"
         guard let url = URL(string: stringURL) else {
@@ -51,14 +52,12 @@ struct BooksAPIClient {
                 errorHandler(AppError.couldNotParseJSON(rawError: error))
             }
         }
-        
-            APIRequestManager.manager.performDataTask(with: urlRequest, completionHandler: completion, errorHandler: errorHandler)
+        APIRequestManager.manager.performDataTask(with: urlRequest, completionHandler: completion, errorHandler: errorHandler)
     }
     
     
     // MARK: - POST Request
     func createBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
-        
         let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books"
         guard let url = URL(string: stringURL) else {
             errorHandler(AppError.badURL(str: stringURL))
@@ -74,7 +73,8 @@ struct BooksAPIClient {
             completionHandler(response)
         }, errorHandler: { print($0) })
     }
-
+    
+    // MARK: - PUT Request
     func updateBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping(Error) -> Void) {
         let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/books/\(book.id)/"
         guard let url = URL(string: stringURL) else {
@@ -86,8 +86,8 @@ struct BooksAPIClient {
         
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-      let editedBook = Book(author: book.author, categories: book.categories, id: book.id, lastCheckedOut: nil, lastCheckedOutBy: book.lastCheckedOutBy, publisher: book.publisher, title: book.title, url: book.url)
-
+        let editedBook = Book(author: book.author, categories: book.categories, id: book.id, lastCheckedOut: nil, lastCheckedOutBy: book.lastCheckedOutBy, publisher: book.publisher, title: book.title, url: book.url)
+        
         do {
             let encodedBody = try JSONEncoder().encode(editedBook)
             urlRequest.httpBody = encodedBody
@@ -99,8 +99,6 @@ struct BooksAPIClient {
             errorHandler(error)
         }
     }
-    
-
     
     // MARK: - DELETE Request
     func deleteBook(book: Book, completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
@@ -114,21 +112,19 @@ struct BooksAPIClient {
         APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
             completionHandler(response)
         }, errorHandler: { print($0) })
-        
     }
-
-
-func deleteAllBooks(completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
-    let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/clean"
-    guard let url = URL(string: stringURL) else {
-        errorHandler(AppError.badURL(str: stringURL))
-        return
-    }
-    var urlRequest = URLRequest(url: url)
-    urlRequest.httpMethod = "DELETE"
-    APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
-        completionHandler(response)
-    }, errorHandler: { print($0) })
     
-}
+    // MARK: - DELETE all Books
+    func deleteAllBooks(completionHandler: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
+        let stringURL = "http://prolific-interview.herokuapp.com/5b6e0136eff04800097ca206/clean"
+        guard let url = URL(string: stringURL) else {
+            errorHandler(AppError.badURL(str: stringURL))
+            return
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "DELETE"
+        APIRequestManager.manager.performDataTask(with: urlRequest, completionResponse: { (response) in
+            completionHandler(response)
+        }, errorHandler: { print($0) })
+    }
 }

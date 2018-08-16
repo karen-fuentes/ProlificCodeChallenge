@@ -9,24 +9,25 @@
 import UIKit
 
 class BookDetailView: UIView {
-    
+    // MARK: - Properties
     let stackView = UIStackView()
-
+    
+    // MARK: init methods
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .lilac
-        setUpViews()
+        viewHierarchy()
         configureConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = .lilac
-        setUpViews()
+        viewHierarchy()
         configureConstraints()
     }
     
-    
+    // MARK: - Constraints
     func configureConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         checkoutButton.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +37,6 @@ class BookDetailView: UIView {
         publisherLabel.translatesAutoresizingMaskIntoConstraints = false
         lastCheckedOutByLabel.translatesAutoresizingMaskIntoConstraints = false
         categoriesLabel.translatesAutoresizingMaskIntoConstraints = false
-        // self.edgesForExtendedLayout = []
         
         let _ = [
             stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -44,58 +44,51 @@ class BookDetailView: UIView {
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             
-            checkoutButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 20),
+            checkoutButton.topAnchor.constraint(equalTo: lastCheckedOutByLabel.bottomAnchor, constant: 20),
             checkoutButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
             checkoutButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
             
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            titleLabel.heightAnchor.constraint(equalToConstant: 40),
             
             authorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             authorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            authorLabel.heightAnchor.constraint(equalToConstant: 40),
             
             publisherLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             publisherLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            publisherLabel.heightAnchor.constraint(equalToConstant: 40),
             
             categoriesLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             categoriesLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            categoriesLabel.heightAnchor.constraint(equalToConstant: 40),
             
             lastCheckedOutByLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             lastCheckedOutByLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            lastCheckedOutByLabel.heightAnchor.constraint(equalToConstant: 40),
             
             deleteButton.topAnchor.constraint(equalTo: checkoutButton.bottomAnchor, constant: 20),
             deleteButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
             deleteButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15)
             ].map({$0.isActive = true })
-        
-        
-        
     }
     
-    func setUpViews() {
+    // MARK: - View hierarchy
+    func viewHierarchy() {
         stackView.axis  = UILayoutConstraintAxis.vertical
         stackView.distribution  = UIStackViewDistribution.equalSpacing
         stackView.alignment = UIStackViewAlignment.center
         stackView.backgroundColor = .black
         stackView.spacing = 16.0
-        
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(authorLabel)
         stackView.addArrangedSubview(publisherLabel)
         stackView.addArrangedSubview(categoriesLabel)
         stackView.addArrangedSubview(lastCheckedOutByLabel)
-        
+        stackView.addArrangedSubview(checkoutButton)
+        stackView.addArrangedSubview(deleteButton)
         self.addSubview(stackView)
-        self.addSubview(checkoutButton)
-        self.addSubview(deleteButton)
-        
+       // self.addSubview(checkoutButton)
+        //self.addSubview(deleteButton)
     }
     
+    //MARK: - UI Objects
     lazy var titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .black
@@ -156,7 +149,7 @@ class BookDetailView: UIView {
         button.layer.borderColor = UIColor.black.cgColor
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
-        button.backgroundColor = .gray
+        button.backgroundColor = .lightBlue
         return button
     }()
     
@@ -170,5 +163,4 @@ class BookDetailView: UIView {
         button.clipsToBounds = true
         return button
     }()
-
 }

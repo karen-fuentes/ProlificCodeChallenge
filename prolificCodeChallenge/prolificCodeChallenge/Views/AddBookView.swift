@@ -5,29 +5,29 @@
 //  Created by Karen Fuentes on 8/15/18.
 //  Copyright © 2018 Karen Fuentes. All rights reserved.
 //
-
 import UIKit
-
+// view for addBookDetailVC in order to adhere to MVC and to declutter the view controller
 class AddBookView: UIView {
-    
+    // MARK: - Properties
     var stackView = UIStackView()
     
+    // MARK: init methods
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .lightGreen
-        viewHierarchy()
-        configureConstraint()
+        self.viewHierarchy()
+        self.configureConstraint()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = .lightGreen
-        viewHierarchy()
-        configureConstraint()
+        self.viewHierarchy()
+        self.configureConstraint()
     }
     
-   
-   private func configureConstraint() {
+    // MARK: - Constraints
+    private func configureConstraint() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         titleTextField.translatesAutoresizingMaskIntoConstraints = false
         authorTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -61,21 +61,21 @@ class AddBookView: UIView {
             ].map({$0.isActive = true})
     }
     
+    // MARK: - View hierarchy
     private func viewHierarchy() {
         stackView.axis  = UILayoutConstraintAxis.vertical
         stackView.distribution  = UIStackViewDistribution.equalSpacing
         stackView.alignment = UIStackViewAlignment.center
         stackView.spacing = 16.0
-        
         stackView.addArrangedSubview(titleTextField)
         stackView.addArrangedSubview(authorTextField)
         stackView.addArrangedSubview(publisherTextField)
         stackView.addArrangedSubview(categoriesTextField)
-        
         self.addSubview(stackView)
         self.addSubview(submitButton)
     }
     
+    // MARK: - UI Objects
     lazy var titleTextField: UITextField = {
         let txtField = UITextField()
         txtField.placeholder = "Title"

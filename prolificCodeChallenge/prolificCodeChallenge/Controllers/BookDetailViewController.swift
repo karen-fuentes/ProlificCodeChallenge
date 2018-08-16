@@ -52,7 +52,20 @@ class BookDetailViewController: UIViewController {
     // MARK: - Share Function
     // when share button is pressed iOS share sheet is presented for user to share
     @objc private func shareButtonWasPressed() {
-        let activityController = UIActivityViewController(activityItems: [self.book], applicationActivities: nil)
+        let bookToShare = "Hey I want to share this book: \(self.book.title), by: \(self.book.author)"
+        let activityController = UIActivityViewController(activityItems: [bookToShare], applicationActivities: nil)
+        activityController.excludedActivityTypes = [UIActivityType.postToWeibo,
+        UIActivityType.message,
+        UIActivityType.mail,
+        UIActivityType.print,
+        UIActivityType.copyToPasteboard,
+        UIActivityType.assignToContact,
+        UIActivityType.saveToCameraRoll,
+        UIActivityType.addToReadingList,
+        UIActivityType.postToFlickr,
+        UIActivityType.postToVimeo,
+        UIActivityType.postToTencentWeibo,
+        UIActivityType.airDrop];
         self.present(activityController, animated: true, completion: nil)
     }
     

@@ -20,13 +20,11 @@ enum AppError: Error {
 // MARK: - API Request Manager
 //using singleton pattern
 class APIRequestManager {
-    
+
     private init() {}
-    
     //Mark: -Properties
     static let manager = APIRequestManager()
     private let urlSession = URLSession(configuration: URLSessionConfiguration.default)
-    
     
     /// gets data with given url and handles errors if they are encountered
     ///
@@ -50,6 +48,12 @@ class APIRequestManager {
             }.resume()
     }
     
+    /// gets url response with given url and handles errors if they are encountered
+    ///
+    /// - Parameters:
+    ///   - request: the type of url request.
+    ///   - completion handler: after response arrives it runs the completion handler.
+    ///   - errorHandler: returns an error if an error occurs.
     func performDataTask(with request: URLRequest, completionResponse: @escaping (URLResponse) -> Void, errorHandler: @escaping (Error) -> Void) {
         self.urlSession.dataTask(with: request){(data: Data?, response: URLResponse?, error: Error?) in
             DispatchQueue.main.async {
@@ -63,6 +67,6 @@ class APIRequestManager {
                 completionResponse(response)
             }
             }.resume()
-    }
+     }
 }
 
