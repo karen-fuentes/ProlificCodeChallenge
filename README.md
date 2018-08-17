@@ -25,22 +25,22 @@ Another way I tried to make the code reusable is separating the api client and r
 ## Demos: 
 
 #### Add Book 
-<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/addingBook.gif" />
+<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/addingBook.gif" width="320" />
 
 #### Checkout Book 
-<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/checkOutDemo.gif" />
+<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/checkOutDemo.gif" width="320"/>
 
 #### Edit Book 
-<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/editBook.gif" />
+<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/editBook.gif" width="320" />
 
 #### Delete One Book  
-<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/deleteOneBook.gif" />
+<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/deleteOneBook.gif" width="320"/>
 
 #### Delete All Books  
-<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/deleteAll.gif" />
+<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/deleteAll.gif" width="320"/>
 
 #### Share Book
-<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/shareBookToTwitter.gif" />
+<img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/shareBookToTwitter.gif" width="320" />
 
 #### Posted on Twitter Feed
 <img src="https://github.com/karen-fuentes/ProlificCodeChallenge/blob/master/images/sharedToTwitter.jpg" width="320" />
